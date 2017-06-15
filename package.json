@@ -1,0 +1,21 @@
+{
+  "name": "flight-seat-availability",
+  "version": "1.0.0",
+  "description": "This is a API to get seat availability schedule price for all the classes for a particular route code",
+  "main": "index.js",
+  "scripts": {
+	"prestart": "npm install",
+	"start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "node-rest-client":"3.1.0",
+    "swagger-tools": "0.10.1"
+  }
+}
