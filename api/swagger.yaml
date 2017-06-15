@@ -1,0 +1,147 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a API to get seat availability schedule price for all the\
+    \ classes for a particular route code"
+  version: "1.0.0"
+  title: "Flight Seat Availability"
+basePath: "/ipm-tib-tps/va/airline"
+paths:
+  /getSeatAvailability:
+    get:
+      summary: "gets the seat availability based on Source,Destination and Date"
+      description: "By passing the source and destination,seat availibility will be\
+        \ fetched.\n"
+      operationId: "getSeatAvaliblity"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Date"
+        in: "query"
+        description: "Date"
+        required: true
+        type: "string"
+      - name: "Source"
+        in: "query"
+        description: "Origin Airport code"
+        required: true
+        type: "string"
+      - name: "Destination"
+        in: "query"
+        description: "Destination Airport code"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Prices for matching criteria"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        400:
+          description: "bad input parameter"
+      x-swagger-router-controller: "Default"
+  /updateSeatInventory:
+    put:
+      summary: "updates the seat inventory after seat booking"
+      description: "By passing the Date,RouteId, class, NoOfSoldSeat,seat inventory\
+        \ will be updated.\n"
+      operationId: "updateSeatInventory"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sourceAirport"
+        in: "query"
+        description: "sourceAirport for which seat is booked"
+        required: true
+        type: "string"
+      - name: "destAirport"
+        in: "query"
+        description: "destAirport for which seat is booked"
+        required: true
+        type: "string"  
+      - name: "Date"
+        in: "query"
+        description: "Date"
+        required: true
+        type: "string"  
+      - name: "RouteId"
+        in: "query"
+        description: "Route Id for which seat is booked"
+        required: true
+        type: "string"
+      - name: "Class"
+        in: "query"
+        description: "Class Of Service"
+        required: true
+        type: "string"
+      - name: "NoOfSeats"
+        in: "query"
+        description: "No Of Seat To Book Or Cancel"
+        required: true
+        type: "number"
+      - name: "TypeofBooking"
+        in: "query"
+        description: "Book/Cancel"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success response"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid request"
+          schema:
+            type: "string"
+        401:
+          description: "Invalid credential"
+          schema:
+            type: "string"
+        404:
+          description: "Route not found"
+          schema:
+            type: "string"
+      x-swagger-router-controller: "Default"
+definitions:
+  SeatAvailability:
+    type: "object"
+    properties:
+      Dest:
+        type: "string"
+      DestinationAirport:
+        type: "string"
+      Seat:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_Seat"
+      Source:
+        type: "string"
+      SourceAirport:
+        type: "string"
+  inline_response_200_inventoryDetail:
+    properties:
+      COS:
+        type: "string"
+      InventoryCount:
+        type: "string"
+  inline_response_200_Seat:
+    properties:
+      RouteId:
+        type: "string"
+      inventoryDetail:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_inventoryDetail"
+  inline_response_200:
+    properties:
+      Dest:
+        type: "string"
+      DestinationAirport:
+        type: "string"
+      Seat:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_Seat"
+      Source:
+        type: "string"
+      SourceAirport:
+        type: "string"
